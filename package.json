@@ -1,0 +1,20 @@
+{
+  "name": "homenet-plugin-zway",
+  "version": "0.0.1",
+  "description": "Homenet plugin for Z-Way connected Z-Wave devices",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Den Williams",
+  "license": "MIT",
+  "keywords": [
+    "homenet",
+    "zway",
+    "zwave"
+  ],
+  "dependencies": {
+    "homenet-core": "^4.0.0-alpha.14",
+    "node-zway": "^0.1.0"
+  }
+}

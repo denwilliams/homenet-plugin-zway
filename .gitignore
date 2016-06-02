@@ -1,0 +1,7 @@
+node_modules
+lib/**/*.js
+lib/**/*.js.map
+lib/**/*.d.ts
+typings/**/*.d.ts
+typings/**/*.json
+_junk/
