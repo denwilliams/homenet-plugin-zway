@@ -1,4 +1,4 @@
-import { plugin, service, IPluginLoader, ILogger, IConfig, ILockManager, ILock, ISensor, ITriggerManager, IPresenceManager, IValuesManager } from 'homenet-core';
+import { plugin, service, IPluginLoader, ILogger, IConfig, ILockManager, ISensorManager, ILock, ISensor, ITriggerManager, IPresenceManager, IValuesManager } from 'homenet-core';
 
 import { ZwayController } from './controller';
 import { ZwayLock } from './lock';
@@ -10,6 +10,7 @@ export class ZwayPluginLoader implements IPluginLoader {
   private _logger : ILogger;
   private _config : IConfig;
   private _locks : ILockManager;
+  private _sensors : ISensorManager;
   private _controllers : any;
   private _triggers: ITriggerManager;
   private _presence: IPresenceManager;
@@ -18,12 +19,14 @@ export class ZwayPluginLoader implements IPluginLoader {
   constructor(
           @service('IConfig') config: IConfig,
           @service('ILockManager') locks: ILockManager,
+          @service('ISensorManager') sensors: ISensorManager,
           @service('ILogger') logger: ILogger,
           @service('ITriggerManager') triggers: ITriggerManager,
           @service('IPresenceManager') presence: IPresenceManager,
           @service('IValuesManager') values: IValuesManager) {
 
     this._locks = locks;
+    this._sensors = sensors;
     this._triggers = triggers;
     this._presence = presence;
     this._values = values;
@@ -35,7 +38,9 @@ export class ZwayPluginLoader implements IPluginLoader {
     this._init();
 
     const lockFactory = this._lockFactory.bind(this);
+    const sensorFactory = this._sensorFactory.bind(this);
     locks.addType('zway', lockFactory);
+    sensors.addType('zway', sensorFactory);
   }
 
   load() : void {

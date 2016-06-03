@@ -17,5 +17,3 @@ export { ZwayPluginLoader } from './loader';
 //     controllers[c.id] = createController(c, logger);
 //   });
 // }
-//
-// exports.getControllers = getControllers;

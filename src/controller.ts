@@ -11,7 +11,6 @@ export interface DeviceEventCallback {
   (event: DeviceEvent): void;
 }
 
-
 export class ZwayController {
   private _deviceApi: DeviceApi;
 
