@@ -14,7 +14,7 @@
     "zwave"
   ],
   "dependencies": {
-    "homenet-core": "^4.0.0-alpha.15",
+    "homenet-core": "^4.0.0-beta.1",
     "node-zway": "^0.1.0"
   }
 }

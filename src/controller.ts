@@ -14,7 +14,7 @@ export interface DeviceEventCallback {
 export class ZwayController {
   private _deviceApi: DeviceApi;
 
-  constructor(id: string, host: string = 'localhost', port: number = 1234) {
+  constructor(id: string, host: string = 'localhost', port: number = 8083) {
     this._deviceApi = new DeviceApi(host);
     this._deviceApi.poll(5000);
   }

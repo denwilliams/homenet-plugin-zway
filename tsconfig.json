@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "moduleResolution": "node",
-        "target": "es5",
+        "target": "es6",
         "removeComments": true,
         "preserveConstEnums": true,
         "experimentalDecorators": true,
@@ -17,8 +17,9 @@
       "noImplicitReturns": true
     },
     "files": [
-      "node_modules/homenet-core/homenet-core.d.ts",
+      "node_modules/homenet-core-tsd/homenet-core.d.ts",
       "typings/index.d.ts",
+      "src/demo.ts",
       "src/index.ts"
     ]
 }
