@@ -39,3 +39,4 @@ lib/**/*.d.ts
 typings/**/*.d.ts
 typings/**/*.json
 _junk/
+.DS_Store
