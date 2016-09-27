@@ -1,13 +1,11 @@
-import { Dict, ILock, ISensor } from 'homenet-core';
+import { Dict, ILogger, ILock, ISensor } from 'homenet-core';
 import { ZwayController } from './controller';
 import { ZwayLock } from './lock';
 
-export function createLockFactory() {
-  let _controllers : Dict<ZwayController>;
-
+export function createLockFactory(controllers: Dict<ZwayController>, logger: ILogger) {
   return function lockFactory(id : string, opts : any) : ILock {
-    this._logger.info('Adding Z-Way lock: ' + id);
-    const controller : ZwayController = this._controllers[opts.controller];
+    logger.info('Adding Z-Way lock: ' + id);
+    const controller : ZwayController = controllers[opts.controller];
     return new ZwayLock(id, controller, opts.deviceId);
   }
 }

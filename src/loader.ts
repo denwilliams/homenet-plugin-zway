@@ -35,7 +35,7 @@ export class ZwayPluginLoader implements IPluginLoader {
 
     this._init();
 
-    locks.addType('zway', createLockFactory());
+    locks.addType('zway', createLockFactory(this._controllers, this._logger));
     // sensors.addType('zway', sensorFactory);
   }
 
