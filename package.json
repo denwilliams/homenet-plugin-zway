@@ -1,9 +1,10 @@
 {
   "name": "homenet-plugin-zway",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Homenet plugin for Z-Way connected Z-Wave devices",
   "main": "lib/index.js",
   "scripts": {
+    "prepublish": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Den Williams",
