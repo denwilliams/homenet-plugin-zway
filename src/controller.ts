@@ -14,19 +14,34 @@ export interface DeviceEventCallback {
 export class ZwayController {
   private _deviceApi: DeviceApi;
 
-  constructor(id: string, host: string = 'localhost', port: number = 8083) {
-    this._deviceApi = new DeviceApi(host);
+  constructor(
+      id: string,
+      host: string = 'localhost',
+      user: string = 'admin',
+      password: string = 'password',
+      port: number = 8083) {
+    this._deviceApi = new DeviceApi({host, port, user, password});
     this._deviceApi.poll(5000);
   }
 
+  start() {
+    this._deviceApi.refresh();
+  }
+
   onSensorEvent(deviceId: number, callback: DeviceEventCallback) : void {
-    this._deviceApi.on(String(deviceId), '48', '*', callback);
+    this._deviceApi.on(deviceId, '48', '*', callback);
   }
 
   onLockEvent(deviceId: number, callback: DeviceEventCallback) : void {
-    console.log('callback', callback);
-    console.log('on', this._deviceApi.on.toString());
-    this._deviceApi.on(String(deviceId), '98', '*', callback);
+    // console.log('lock callback', callback);
+    // console.log('on', this._deviceApi.on.toString());
+    this._deviceApi.on(deviceId, '98', '*', callback);
+  }
+
+  onAlarmEvent(deviceId: number, callback: DeviceEventCallback) : void {
+    // console.log('alarm callback', callback);
+    // console.log('on', this._deviceApi.on.toString());
+    this._deviceApi.on(deviceId, '113', '*', callback);
   }
 
   getDevice(deviceId: number) : IDevice {
@@ -38,6 +53,6 @@ export class ZwayController {
   }
 
   // getSensorDevice(deviceId: number) : IDevice {
-  //   return this._deviceApi.getDevice(deviceId, CLASS_LOCK);
+  //   return this._deviceApi.getDevice(deviceId, CLASS_SENSOR);
   // }
 }

@@ -1,17 +1,17 @@
-import { plugin, service, IPluginLoader, ILogger, IConfig, ILockManager, ISensorManager, ILock, ISensor, ITriggerManager, IPresenceManager, IValuesManager } from 'homenet-core';
+import { plugin, service, Dict, IPluginLoader, ILogger, IConfig, ILockManager, ISensorManager, ILock, ISensor, ITriggerManager, IPresenceManager, IValuesManager } from 'homenet-core';
 
 import { ZwayController } from './controller';
 import { ZwayLock } from './lock';
-import { ZwaySensor } from './sensor';
+import { createLockFactory } from './factories';
+// import { ZwaySensor } from './sensor';
 
 @plugin()
 export class ZwayPluginLoader implements IPluginLoader {
-
   private _logger : ILogger;
   private _config : IConfig;
   private _locks : ILockManager;
   private _sensors : ISensorManager;
-  private _controllers : any;
+  private _controllers : Dict<ZwayController>;
   private _triggers: ITriggerManager;
   private _presence: IPresenceManager;
   private _values: IValuesManager;
@@ -33,28 +33,27 @@ export class ZwayPluginLoader implements IPluginLoader {
     this._logger = logger;
     this._config = config;
 
-    this._controllers = {};
-
     this._init();
 
-    const lockFactory = this._lockFactory.bind(this);
-    const sensorFactory = this._sensorFactory.bind(this);
-    locks.addType('zway', lockFactory);
-    sensors.addType('zway', sensorFactory);
+    locks.addType('zway', createLockFactory());
+    // sensors.addType('zway', sensorFactory);
   }
 
   load() : void {
-    this._logger.info('Loading zway stuff');
+    this._logger.info('Starting zway controllers...');
+    Object.keys(this._controllers).forEach(key => {
+      this._controllers[key].start();
+    });
   }
 
   _init() : void {
-    this._logger.info('Starting zway');
+    this._logger.info('Starting zway plugin');
 
     const zwayConfig = (<any>this._config).zway || {};
     const controllersConfigs = zwayConfig.controllers || [];
 
     controllersConfigs.forEach(c => {
-      this._controllers[c.id] = new ZwayController(c.id, c.host, c.port);
+      this._controllers[c.id] = new ZwayController(c.id, c.host, c.user, c.password, c.port);
     });
   }
 
@@ -64,9 +63,9 @@ export class ZwayPluginLoader implements IPluginLoader {
     return new ZwayLock(id, controller, opts.deviceId);
   }
 
-  _sensorFactory(id : string, opts : any) : ISensor {
-    this._logger.info('Adding Z-Way sensor: ' + id);
-    const controller : ZwayController = this._controllers[opts.controller];
-    return new ZwaySensor(id, controller, opts, this._triggers, this._presence, this._values);
-  }
+  // _sensorFactory(id : string, opts : any) : ISensor {
+  //   this._logger.info('Adding Z-Way sensor: ' + id);
+  //   const controller : ZwayController = this._controllers[opts.controller];
+  //   return new ZwaySensor(id, controller, opts, this._triggers, this._presence, this._values);
+  // }
 }

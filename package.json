@@ -1,6 +1,6 @@
 {
   "name": "homenet-plugin-zway",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Homenet plugin for Z-Way connected Z-Wave devices",
   "main": "lib/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "zwave"
   ],
   "dependencies": {
-    "homenet-core": "^4.0.0-beta.1",
-    "node-zway": "^0.1.0"
+    "homenet-core-tsd": "^4.0.0-alpha.1",
+    "node-zway": "^0.2.1"
   }
 }

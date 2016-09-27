@@ -1,8 +1,11 @@
 declare module ZWay {
   export class DeviceApi {
     constructor(host: string);
+    constructor(opts: {host: string, port: number, user: string, password: string});
+    refresh() : void;
     poll(inverval: number) : void;
-    on(device: string, className: string, event: string, callback: Function);
+    on(device: number, className: string, event: string, callback: Function);
+    onAny(Function);
     getDevice(deviceId: number, classId?: number) : IDevice;
   }
 
