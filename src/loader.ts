@@ -52,6 +52,7 @@ export class ZwayPluginLoader implements IPluginLoader {
     const zwayConfig = (<any>this._config).zway || {};
     const controllersConfigs = zwayConfig.controllers || [];
 
+    this._controllers = {};
     controllersConfigs.forEach(c => {
       this._controllers[c.id] = new ZwayController(c.id, c.host, c.user, c.password, c.port);
     });
