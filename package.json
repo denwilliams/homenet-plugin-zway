@@ -15,7 +15,7 @@
     "zwave"
   ],
   "dependencies": {
-    "homenet-core-tsd": "^4.0.0-alpha.1",
-    "node-zway": "^0.2.1"
+    "homenet-core-tsd": "^4.0.0-beta.1",
+    "node-zway": "^0.2.2"
   }
 }
