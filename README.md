@@ -9,8 +9,8 @@ Sensors and binary switches coming soon.
 Use the `loadPlugin` method on the core runtime:
 
 ```js
-const core = require('homenet-core');
-const zwayPlugin = require('homenet-plugin-zway');
+const core = require('@homenet/core');
+const zwayPlugin = require('@homenet/plugin-zway');
 const runtime = core.init(RED, myConfig);
 runtime.loadPlugin(zwayPlugin.ZwayPluginLoader);
 runtime.start();
