@@ -17,8 +17,7 @@
       "noImplicitReturns": true
     },
     "files": [
-      "node_modules/homenet-core-tsd/homenet-core.d.ts",
-      "typings/index.d.ts",
+      "node_modules/@homenet/core-tsd/homenet-core.d.ts",
       "src/index.ts"
     ]
 }
