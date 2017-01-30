@@ -4,7 +4,6 @@
   "description": "Homenet plugin for Z-Way connected Z-Wave devices",
   "main": "lib/index.js",
   "scripts": {
-    "prepublish": "tsc",
     "test": ""
   },
   "author": "Den Williams",
