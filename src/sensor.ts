@@ -1,4 +1,4 @@
-import { TriggerSensor, ITriggerManager, IPresenceManager, IValuesManager } from 'homenet-core';
+import { TriggerSensor, ITriggerManager, IPresenceManager, IValuesManager } from '@homenet/core';
 import { ZwayController } from './controller';
 
 export class ZwaySensor extends TriggerSensor {

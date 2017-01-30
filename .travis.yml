@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- '4'
+before_install:
+- rm -rf lib/
+- npm install
+- npm install -g typescript@2.1.5
+- tsc
+deploy:
+  provider: npm
+  email: work@denwilliams.net
+  on:
+    tags: true
+    repo: denwilliams/homenet-plugin-zway
+  api_key:
+    secure: mkh1b7v20x8Mni+6WZYz7fqzWp2f9Oh0cFAPUV9l/xVmETqHjx8WGTls3TTnoOf3CvK68n4JZvNq3YMJUSj9RtcofDG/1Uj7Bl2QjJxlwX11UbvZNaZNM8ozdrckQRchIwO/m4ltjBBgyuXy9ZXQsqMwaihrfI9Z0t1fEFY/kuejej8FQIuqcpPTcVqUjhvhAYFWGAolXLz6TmuxasMYXqt7y897fZPpl20pWerco/xRW4dQ8M20HOnGC4sOrQrJXfqjdMu78P5Bz61HOZ+QMJlZUTEM6kMNtQqMMeaAaFp4w7apcE2UxEUabJSMMOlQMnjBWbxUvb58GgwBujL9f+OeR8IpSZiprvr2k/Z9v/YWJPSbBfYsfnwv1G2oCetN6XnqIN1AmRRpn5nkTxR2IRW9dxc6/3FBjUBkzSTJjXidUkfkFmGTkoapp5jKKNsxoIzMekmMOF+bIf1Qd3HD2G1S7sIu6OAV1iVAxWTw3kCfjFaqhHAEZhHm8Hq5W0IdwzgzSJKKr5rIPWQCk943JDcpnmGpkb+9GRuSfnE1d1QhZzloWWsZnOAeWGTsoY7TJmqDbvme8FFHb0pXSAGyL5gxr98GUc55x/kwFg+PE7v4sqBSMUxs6GCOJDKiJ9W9SBMiH4t3bUbryskpnfLIPUsqE6xjjmXyn22S7iZw2sI=

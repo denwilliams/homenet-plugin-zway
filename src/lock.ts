@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { ISettable } from 'homenet-core';
+import { ISettable } from '@homenet/core';
 import { ZwayController, DeviceEventCallback } from './controller';
 
 const CLASS_LOCK = 98;

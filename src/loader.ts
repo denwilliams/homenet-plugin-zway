@@ -1,4 +1,4 @@
-import { plugin, service, Dict, IPluginLoader, ILogger, IConfig, ILockManager, ISensorManager, ILock, ISensor, ITriggerManager, IPresenceManager, IValuesManager, ISettable } from 'homenet-core';
+import { plugin, service, Dict, IPluginLoader, ILogger, IConfig, ILockManager, ISensorManager, ILock, ISensor, ITriggerManager, IPresenceManager, IValuesManager, ISettable } from '@homenet/core';
 
 import { ZwayController } from './controller';
 import { ZwayLock } from './lock';

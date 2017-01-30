@@ -1,4 +1,4 @@
-import { Dict, ILogger, ILock, ISensor, ISettable } from 'homenet-core';
+import { Dict, ILogger, ILock, ISensor, ISettable } from '@homenet/core';
 import { ZwayController } from './controller';
 import { ZwayLock } from './lock';
 
