@@ -1,6 +1,6 @@
 {
   "name": "@homenet/plugin-zway",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Homenet plugin for Z-Way connected Z-Wave devices",
   "main": "lib/index.js",
   "scripts": {
