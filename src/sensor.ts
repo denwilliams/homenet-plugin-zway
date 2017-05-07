@@ -33,7 +33,6 @@ export class ZwayMotionSensor extends EventEmitter implements ISensor {
 }
 
 export abstract class ZwayValueSensor extends EventEmitter implements IValueSensor {
-  public opts: ISensorOpts;
   public isTrigger: boolean = false;
   public isToggle: boolean = false;
   public isValue: boolean = true;
@@ -45,7 +44,7 @@ export abstract class ZwayValueSensor extends EventEmitter implements IValueSens
   constructor(
           instanceId: string,
           private controller: ZwayController,
-          opts: { deviceId: number, zoneId: string }
+          public opts: { deviceId: number, zoneId: string }
           ) {
     super();
     this.isTrigger = false;
