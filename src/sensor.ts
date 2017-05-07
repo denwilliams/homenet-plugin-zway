@@ -1,7 +1,6 @@
 import { ISensor, IValueSensor, ISensorOpts, ITriggerManager, IPresenceManager, IValuesManager } from '@homenet/core';
 import { EventEmitter } from 'events';
 import { ZwayController, SensorEvent } from './controller';
-import chalk = require('chalk');
 
 export class ZwayMotionSensor extends EventEmitter implements ISensor {
   public opts: ISensorOpts;
