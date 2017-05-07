@@ -17,13 +17,13 @@ export function createSensorFactory(controllers: Dict<ZwayController>, logger: I
     const controller : ZwayController = controllers[opts.controller];
     switch (type) {
       case 'motion':
-        return new ZwayMotionSensor(id, controller, opts.deviceId);
+        return new ZwayMotionSensor(id, controller, opts);
       case 'temperature':
-        return new ZwayTemperatureSensor(id, controller, opts.deviceId);
+        return new ZwayTemperatureSensor(id, controller, opts);
       case 'humidity':
-        return new ZwayHumiditySensor(id, controller, opts.deviceId);
+        return new ZwayHumiditySensor(id, controller, opts);
       case 'luminiscence':
-        return new ZwayLuminiscenceSensor(id, controller, opts.deviceId);
+        return new ZwayLuminiscenceSensor(id, controller, opts);
       default:
         throw new Error(`Could not create ${type} sensor: ${id}`)
     }

@@ -40,18 +40,20 @@ export abstract class ZwayValueSensor extends EventEmitter implements IValueSens
   protected inputKey;
   protected zwayType;
   private key: string;
+  private deviceId: number;
 
   constructor(
           instanceId: string,
           private controller: ZwayController,
-          private deviceId: number
+          opts: { deviceId: number, zoneId: string }
           ) {
     super();
     this.isTrigger = false;
     this.isValue = true;
     this.isToggle = false;
+    this.deviceId = opts.deviceId;
   
-    controller.onSensorMultiEvent(deviceId, this.onSensorValueEvent.bind(this));
+    controller.onSensorMultiEvent(opts.deviceId, this.onSensorValueEvent.bind(this));
   }
 
   get(key: string): number {
@@ -87,9 +89,9 @@ export class ZwayTemperatureSensor extends ZwayValueSensor {
   constructor(
           instanceId: string,
           controller: ZwayController,
-          deviceId: number
+          opts: { deviceId: number, zoneId: string }
           ) {
-    super(instanceId, controller, deviceId);
+    super(instanceId, controller, opts);
     this.zwayType = 'Temperature';
     this.inputKey = 'temperature';
   }
@@ -99,9 +101,9 @@ export class ZwayHumiditySensor extends ZwayValueSensor {
   constructor(
           instanceId: string,
           controller: ZwayController,
-          deviceId: number
+          opts: { deviceId: number, zoneId: string }
           ) {
-    super(instanceId, controller, deviceId);
+    super(instanceId, controller, opts);
     this.zwayType = 'Humidity';
     this.inputKey = 'humidity';
   }
@@ -111,9 +113,9 @@ export class ZwayLuminiscenceSensor extends ZwayValueSensor {
   constructor(
           instanceId: string,
           controller: ZwayController,
-          deviceId: number
+          opts: { deviceId: number, zoneId: string }
           ) {
-    super(instanceId, controller, deviceId);
+    super(instanceId, controller, opts);
     this.zwayType = 'Luminiscence';
     this.inputKey = 'luminiscence';
   }
