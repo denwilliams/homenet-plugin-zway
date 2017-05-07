@@ -4,7 +4,7 @@ node_js:
 before_install:
 - rm -rf lib/
 - npm install
-- npm install -g typescript@2.1.5
+- npm install -g typescript@2.3.2
 - tsc
 deploy:
   provider: npm
