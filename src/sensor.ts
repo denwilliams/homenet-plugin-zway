@@ -3,7 +3,6 @@ import { EventEmitter } from 'events';
 import { ZwayController, SensorEvent } from './controller';
 
 export class ZwayMotionSensor extends EventEmitter implements ISensor {
-  public opts: ISensorOpts;
   public isTrigger: boolean = false;
   public isToggle: boolean = true;
   public isValue: boolean = false;
@@ -11,14 +10,14 @@ export class ZwayMotionSensor extends EventEmitter implements ISensor {
   constructor(
           instanceId: string,
           private controller: ZwayController,
-          private deviceId: number
+          public opts: { deviceId: number, zoneId: string }
           ) {
     super();
     this.isTrigger = false;
     this.isValue = false;
     this.isToggle = true;
   
-    controller.onSensorBinaryEvent(deviceId, this.onSensorMotionEvent.bind(this));
+    controller.onSensorBinaryEvent(opts.deviceId, this.onSensorMotionEvent.bind(this));
   }
 
   get
