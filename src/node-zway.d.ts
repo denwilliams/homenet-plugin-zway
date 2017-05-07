@@ -7,10 +7,13 @@ declare module ZWay {
     on(device: number, className: string, event: string, callback: Function);
     onAny(Function);
     getDevice(deviceId: number, classId?: number) : IDevice;
+    getDevice(deviceId: number, classIds: [number]) : IDevice;
   }
 
   export interface IDevice {
-    DoorLock?: IDoorLock;
+    DoorLock?: IDoorLock
+    SensorBinary?: any
+    SensorMultilevel?: any
   }
 
   export interface IDoorLock {

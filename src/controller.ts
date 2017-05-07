@@ -2,6 +2,9 @@
 
 import { DeviceApi, IDevice } from 'node-zway';
 const CLASS_LOCK = 98;
+const CLASS_SENSOR_BINARY = 48;
+const CLASS_SENSOR_MULTI = 49;
+const CLASS_ALARM = 113;
 
 export interface DeviceEvent {
   deviceId: string;
@@ -23,6 +26,18 @@ export interface AlarmEvent {
   data: {
     alarmType: number // eg: 25 == 'unlock', 24 'lock'
     level: number // 1 
+  }
+}
+
+
+export interface SensorEvent {
+  device: string // eg: '11'
+  class: string // eg: '48', '49'
+  className: string // eg: 'SensorBinary', 'SensorMultilevel'
+  event: string // generally '1'
+  data: {
+    sensorTypeString: string // eg: General purpose
+    level: number | boolean | string // eg: true
   }
 }
 
@@ -50,20 +65,24 @@ export class ZwayController {
     this._deviceApi.refresh();
   }
 
-  onSensorEvent(deviceId: number, callback: DeviceEventCallback) : void {
-    this._deviceApi.on(deviceId, '48', '*', callback);
+  onSensorBinaryEvent(deviceId: number, callback: DeviceEventCallback) : void {
+    this._deviceApi.on(deviceId, String(CLASS_SENSOR_BINARY), '*', callback);
+  }
+
+  onSensorMultiEvent(deviceId: number, callback: DeviceEventCallback) : void {
+    this._deviceApi.on(deviceId, String(CLASS_SENSOR_MULTI), '*', callback);
   }
 
   onLockEvent(deviceId: number, callback: EventCallback<LockEvent>) : void {
     // console.log('lock callback', callback);
     // console.log('on', this._deviceApi.on.toString());
-    this._deviceApi.on(deviceId, '98', '*', callback);
+    this._deviceApi.on(deviceId, String(CLASS_LOCK), '*', callback);
   }
 
   onAlarmEvent(deviceId: number, callback: EventCallback<AlarmEvent>) : void {
     // console.log('alarm callback', callback);
     // console.log('on', this._deviceApi.on.toString());
-    this._deviceApi.on(deviceId, '113', '*', callback);
+    this._deviceApi.on(deviceId, String(CLASS_ALARM), '*', callback);
   }
 
   getDevice(deviceId: number) : IDevice {
@@ -74,7 +93,7 @@ export class ZwayController {
     return this._deviceApi.getDevice(deviceId, CLASS_LOCK);
   }
 
-  // getSensorDevice(deviceId: number) : IDevice {
-  //   return this._deviceApi.getDevice(deviceId, CLASS_SENSOR);
-  // }
+  getSensorDevice(deviceId: number) : IDevice {
+    return this._deviceApi.getDevice(deviceId, [CLASS_SENSOR_BINARY, CLASS_SENSOR_MULTI]);
+  }
 }
