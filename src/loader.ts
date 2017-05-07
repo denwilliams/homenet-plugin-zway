@@ -2,8 +2,7 @@ import { plugin, service, Dict, IPluginLoader, ILogger, IConfig, ILockManager, I
 
 import { ZwayController } from './controller';
 import { ZwayLock } from './lock';
-import { createLockFactory } from './factories';
-// import { ZwaySensor } from './sensor';
+import { createLockFactory, createSensorFactory } from './factories';
 
 @plugin()
 export class ZwayPluginLoader implements IPluginLoader {
@@ -20,7 +19,10 @@ export class ZwayPluginLoader implements IPluginLoader {
 
     this.init();
     locks.addSettableType('zway', createLockFactory(this.controllers, this.logger));
-    // sensors.addType('zway', sensorFactory);
+    sensors.addType('zway-motion', createSensorFactory(this.controllers, this.logger, 'motion'));
+    sensors.addType('zway-temperature', createSensorFactory(this.controllers, this.logger, 'temperature'));
+    sensors.addType('zway-humidity', createSensorFactory(this.controllers, this.logger, 'humidity'));
+    sensors.addType('zway-luminiscence', createSensorFactory(this.controllers, this.logger, 'luminiscence'));
   }
 
   load() : void {
