@@ -1,6 +1,6 @@
 import { ISensor, IValueSensor, ISensorOpts, ITriggerManager, IPresenceManager, IValuesManager } from '@homenet/core';
 import { EventEmitter } from 'events';
-import { ZwayController } from './controller';
+import { ZwayController, SensorEvent } from './controller';
 import chalk = require('chalk');
 
 export class ZwayMotionSensor extends EventEmitter implements ISensor {
@@ -72,8 +72,15 @@ export abstract class ZwayValueSensor extends EventEmitter implements IValueSens
     // not possible
   }
 
-  private onSensorValueEvent(event: any) : void {
-    console.log('ZWAY SENSOR EVENT', event);
+  private onSensorValueEvent(e: SensorEvent) : void {
+    if (!this.key) {
+      const device = this.controller.getSensorDevice(this.deviceId);
+      this.key = getKey(this.zwayType, device.SensorMultilevel.getItems());
+    }
+    if (e.event !== this.key) return;
+
+    // console.log('ZWAY SENSOR EVENT', event);
+    this.emit('value', this.inputKey, e.data.val);
   }
 }
 

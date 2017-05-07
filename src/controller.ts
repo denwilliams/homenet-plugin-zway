@@ -38,6 +38,10 @@ export interface SensorEvent {
   data: {
     sensorTypeString: string // eg: General purpose
     level: number | boolean | string // eg: true
+    val: number
+    scale: number
+    scaleString: string
+    deviceScale: string
   }
 }
 
