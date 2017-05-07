@@ -7,8 +7,30 @@ export interface DeviceEvent {
   deviceId: string;
 }
 
-export interface DeviceEventCallback {
-  (event: DeviceEvent): void;
+export interface LockEvent {
+  device: string // eg: '11'
+  class: string // always '98'
+  className: string // always 'DoorLock'
+  event: string // eg 'mode', 'insideMode', 'outsideMode', 'lockMinutes', 'lockSeconds', 'condition'
+  data: number // eg: 255 for locked, 0 for unlocked
+}
+
+export interface AlarmEvent {
+  device: string // eg: '11'
+  class: string // always '113'
+  className: string // always 'Alarm'
+  event: string // generally 'V1event'
+  data: {
+    alarmType: number // eg: 25 == 'unlock', 24 'lock'
+    level: number // 1 
+  }
+}
+
+export interface DeviceEventCallback extends EventCallback<DeviceEvent> {
+}
+
+export interface EventCallback<T> {
+  (event: T): void;
 }
 
 export class ZwayController {
@@ -32,13 +54,13 @@ export class ZwayController {
     this._deviceApi.on(deviceId, '48', '*', callback);
   }
 
-  onLockEvent(deviceId: number, callback: DeviceEventCallback) : void {
+  onLockEvent(deviceId: number, callback: EventCallback<LockEvent>) : void {
     // console.log('lock callback', callback);
     // console.log('on', this._deviceApi.on.toString());
     this._deviceApi.on(deviceId, '98', '*', callback);
   }
 
-  onAlarmEvent(deviceId: number, callback: DeviceEventCallback) : void {
+  onAlarmEvent(deviceId: number, callback: EventCallback<AlarmEvent>) : void {
     // console.log('alarm callback', callback);
     // console.log('on', this._deviceApi.on.toString());
     this._deviceApi.on(deviceId, '113', '*', callback);
