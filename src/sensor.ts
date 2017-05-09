@@ -1,6 +1,7 @@
 import { ISensor, IValueSensor, ISensorOpts, ITriggerManager, IPresenceManager, IValuesManager } from '@homenet/core';
 import { EventEmitter } from 'events';
 import { ZwayController, SensorEvent } from './controller';
+import { IDevice } from 'node-zway';
 
 export class ZwayMotionSensor extends EventEmitter implements ISensor {
   public isTrigger: boolean = false;
@@ -20,8 +21,6 @@ export class ZwayMotionSensor extends EventEmitter implements ISensor {
     controller.onSensorBinaryEvent(opts.deviceId, this.onSensorMotionEvent.bind(this));
   }
 
-  get
-
   private onSensorMotionEvent(e: any) : void {
     if (e.event !== '1') {
       console.log('Expected motion event to have event name "1"');
@@ -39,6 +38,7 @@ export abstract class ZwayValueSensor extends EventEmitter implements IValueSens
   protected zwayType;
   private key: string;
   private deviceId: number;
+  private device: IDevice;
 
   constructor(
           instanceId: string,
@@ -50,21 +50,24 @@ export abstract class ZwayValueSensor extends EventEmitter implements IValueSens
     this.isValue = true;
     this.isToggle = false;
     this.deviceId = opts.deviceId;
+    this.device = this.controller.getSensorDevice(this.deviceId);
   
     controller.onSensorMultiEvent(opts.deviceId, this.onSensorValueEvent.bind(this));
+
+    setInterval(() => {
+      this.device.SensorMultilevel.refresh();
+    }, 60000);
   }
 
   get(key: string): number {
     if (key !== this.inputKey) return 0;
 
-    const device = this.controller.getSensorDevice(this.deviceId);
-
     if (!this.key) {
-      this.key = getKey(this.zwayType, device.SensorMultilevel.getItems());
+      this.key = getKey(this.zwayType, this.device.SensorMultilevel.getItems());
     }
     if (!this.key) return 0;
 
-    return device.SensorMultilevel.get(this.key).val;
+    return this.device.SensorMultilevel.get(this.key).val;
   }
 
   set(key: string, value: string) {
