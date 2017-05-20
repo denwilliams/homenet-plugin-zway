@@ -117,8 +117,8 @@ export class ZwayLuminescenceSensor extends ZwayValueSensor {
           opts: { deviceId: number, zoneId: string }
           ) {
     super(instanceId, controller, opts);
-    this.zwayType = 'Luminescence';
-    this.inputKey = 'luminiscence';
+    this.zwayType = 'Luminiscence';
+    this.inputKey = 'luminescence';
   }
 }
 
