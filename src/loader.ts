@@ -22,7 +22,7 @@ export class ZwayPluginLoader implements IPluginLoader {
     sensors.addType('zway-motion', createSensorFactory(this.controllers, this.logger, 'motion'));
     sensors.addType('zway-temperature', createSensorFactory(this.controllers, this.logger, 'temperature'));
     sensors.addType('zway-humidity', createSensorFactory(this.controllers, this.logger, 'humidity'));
-    sensors.addType('zway-luminiscence', createSensorFactory(this.controllers, this.logger, 'luminiscence'));
+    sensors.addType('zway-luminescence', createSensorFactory(this.controllers, this.logger, 'luminescence'));
   }
 
   load() : void {

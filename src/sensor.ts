@@ -110,15 +110,15 @@ export class ZwayHumiditySensor extends ZwayValueSensor {
   }
 }
 
-export class ZwayLuminiscenceSensor extends ZwayValueSensor {
+export class ZwayLuminescenceSensor extends ZwayValueSensor {
   constructor(
           instanceId: string,
           controller: ZwayController,
           opts: { deviceId: number, zoneId: string }
           ) {
     super(instanceId, controller, opts);
-    this.zwayType = 'Luminiscence';
-    this.inputKey = 'luminiscence';
+    this.zwayType = 'Luminescence';
+    this.inputKey = 'luminescence';
   }
 }
 

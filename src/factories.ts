@@ -1,4 +1,4 @@
-import { ZwayMotionSensor, ZwayLuminiscenceSensor, ZwayHumiditySensor, ZwayTemperatureSensor } from './sensor';
+import { ZwayMotionSensor, ZwayLuminescenceSensor, ZwayHumiditySensor, ZwayTemperatureSensor } from './sensor';
 import { Dict, ILogger, ILock, ISensor, ISettable } from '@homenet/core';
 import { ZwayController } from './controller';
 import { ZwayLock } from './lock';
@@ -11,7 +11,7 @@ export function createLockFactory(controllers: Dict<ZwayController>, logger: ILo
   }
 }
 
-export function createSensorFactory(controllers: Dict<ZwayController>, logger: ILogger, type: 'motion' | 'temperature' | 'humidity' | 'luminiscence') {
+export function createSensorFactory(controllers: Dict<ZwayController>, logger: ILogger, type: 'motion' | 'temperature' | 'humidity' | 'luminescence') {
   return function sensorFactory(id : string, opts : any) : ISensor {
     logger.info(`Adding Z-Way ${type} sensor: ${id}`);
     const controller : ZwayController = controllers[opts.controller];
@@ -22,8 +22,8 @@ export function createSensorFactory(controllers: Dict<ZwayController>, logger: I
         return new ZwayTemperatureSensor(id, controller, opts);
       case 'humidity':
         return new ZwayHumiditySensor(id, controller, opts);
-      case 'luminiscence':
-        return new ZwayLuminiscenceSensor(id, controller, opts);
+      case 'luminescence':
+        return new ZwayLuminescenceSensor(id, controller, opts);
       default:
         throw new Error(`Could not create ${type} sensor: ${id}`)
     }
