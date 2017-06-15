@@ -1,4 +1,4 @@
 declare module 'homenet-plugin-zway' {
   import { IPluginLoader } from '@homenet/core';
-  export var ZwayPluginLoader: new (...args: any[]) => IPluginLoader
+  export function create(annotate: any): { ZwayPluginLoader: new (...args: any[]) => IPluginLoader }
 }

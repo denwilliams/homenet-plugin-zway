@@ -1,19 +1,7 @@
-export { ZwayPluginLoader } from './loader';
+import { create } from './loader';
 
-// import { ZwayController } from './controller';
-//
-// var controllers = null;
-//
-// function getControllers(config, logger) {
-//   if (!controllers) {
-//     controllers = createControllers(config);
-//   }
-//   return controllers;
-// }
-//
-// function createControllers(config, logger) {
-//   controllers = {};
-//   config.zway.controllers.forEach(function(c) {
-//     controllers[c.id] = createController(c, logger);
-//   });
-// }
+function load(annotate): any {
+  return create(annotate);
+};
+
+export = load;
