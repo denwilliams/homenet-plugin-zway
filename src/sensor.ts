@@ -17,7 +17,7 @@ export class ZwayMotionSensor extends EventEmitter implements ISensor {
     this.isTrigger = false;
     this.isValue = false;
     this.isToggle = true;
-  
+
     controller.onSensorBinaryEvent(opts.deviceId, this.onSensorMotionEvent.bind(this));
   }
 
@@ -39,6 +39,7 @@ export abstract class ZwayValueSensor extends EventEmitter implements IValueSens
   private key: string;
   private deviceId: number;
   private device: IDevice;
+  private battery: number;
 
   constructor(
           instanceId: string,
@@ -51,7 +52,7 @@ export abstract class ZwayValueSensor extends EventEmitter implements IValueSens
     this.isToggle = false;
     this.deviceId = opts.deviceId;
     this.device = this.controller.getSensorDevice(this.deviceId);
-  
+
     controller.onSensorMultiEvent(opts.deviceId, this.onSensorValueEvent.bind(this));
 
     setInterval(() => {
@@ -60,6 +61,8 @@ export abstract class ZwayValueSensor extends EventEmitter implements IValueSens
   }
 
   get(key: string): number {
+    if (key === 'battery') return this.device.Battery.get('last');
+
     if (key !== this.inputKey) return 0;
 
     if (!this.key) {
@@ -83,6 +86,16 @@ export abstract class ZwayValueSensor extends EventEmitter implements IValueSens
 
     // console.log('ZWAY SENSOR EVENT', event);
     this.emit('value', this.inputKey, e.data.val);
+    this.checkBattery();
+  }
+
+  private checkBattery(): void {
+    const lastReading = this.battery;
+    this.battery = this.get('battery');
+
+    if (this.battery === lastReading) return;
+
+    this.emit('value', 'battery', this.battery);
   }
 }
 

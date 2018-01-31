@@ -14,6 +14,7 @@ declare module ZWay {
     DoorLock?: IDoorLock
     SensorBinary?: any
     SensorMultilevel?: any
+    Battery?: any
   }
 
   export interface IDoorLock {

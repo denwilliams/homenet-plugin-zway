@@ -5,6 +5,7 @@ const CLASS_LOCK = 98;
 const CLASS_SENSOR_BINARY = 48;
 const CLASS_SENSOR_MULTI = 49;
 const CLASS_ALARM = 113;
+const CLASS_BATTERY = 128;
 
 export interface DeviceEvent {
   deviceId: string;
@@ -25,7 +26,7 @@ export interface AlarmEvent {
   event: string // generally 'V1event'
   data: {
     alarmType: number // eg: 25 == 'unlock', 24 'lock'
-    level: number // 1 
+    level: number // 1
   }
 }
 
@@ -98,6 +99,6 @@ export class ZwayController {
   }
 
   getSensorDevice(deviceId: number) : IDevice {
-    return this._deviceApi.getDevice(deviceId, [CLASS_SENSOR_BINARY, CLASS_SENSOR_MULTI]);
+    return this._deviceApi.getDevice(deviceId, [CLASS_SENSOR_BINARY, CLASS_SENSOR_MULTI, CLASS_BATTERY]);
   }
 }
