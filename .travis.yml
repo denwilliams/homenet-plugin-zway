@@ -9,6 +9,7 @@ before_install:
 before_deploy:
 - tsc
 deploy:
+  skip_cleanup: true
   provider: npm
   email: work@denwilliams.net
   on:
