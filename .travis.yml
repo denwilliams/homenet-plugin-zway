@@ -6,6 +6,8 @@ before_install:
 - npm install
 - npm install -g typescript@2.3.2
 - tsc
+before_deploy:
+- tsc
 deploy:
   provider: npm
   email: work@denwilliams.net
